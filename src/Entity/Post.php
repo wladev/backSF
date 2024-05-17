@@ -4,10 +4,17 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\PostRepository;
+use DateTime;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints\Image;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ApiResource()]
+#[Vich\Uploadable]
 class Post
 {
     #[ORM\Id]
@@ -21,12 +28,27 @@ class Post
     #[ORM\Column(length: 255)]
     private ?string $link = null;
 
-    #[ORM\Column(length: 255)]
+    #[Vich\UploadableField(mapping: 'articles', fileNameProperty: 'picture')]
+    #[Image()]
+    private ?File $pictureFile = null;
+
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $picture = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $postBy = null;
+
+
+    public function __construct() {
+        $this->createdAt = new DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -62,22 +84,66 @@ class Post
         return $this->picture;
     }
 
-    public function setPicture(string $picture): static
+    public function setPicture(string | null $picture): static
     {
         $this->picture = $picture;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
+
+    public function setPictureFile(?File $pictureFile = null): void
+    {
+        $this->pictureFile = $pictureFile;
+
+        if (null !== $pictureFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->createdAt = new \DateTime();
+        }
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPostBy(): ?User
+    {
+        return $this->postBy;
+    }
+
+    public function setPostBy(?User $postBy): static
+    {
+        $this->postBy = $postBy;
+
+        return $this;
+    }
+
+
 }
+
+

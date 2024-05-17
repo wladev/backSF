@@ -5,14 +5,16 @@
 {% block body %}
     <div class="container-fluid">
     <h1 class="text-center">Articles</h1>
+    <a href="{{ path('app_post_new') }}"><button type="button" class="btn btn-success">Nouvel article</button></a>
 
     <table class="table">
         <thead>
             <tr>
-                <th class="text-center">Id</th>
+                {# <th class="text-center">Id</th> #}
                 <th class="text-center">Description</th>
                 <th class="text-center">Lien vers la page web (https://...)</th>
                 <th class="text-center">Nom de l'image (avec extension)</th>
+                <th class="text-center">Posté par</th>
                 <th class="text-center">Posté le</th>
                 <th class="text-center">actions</th>
             </tr>
@@ -20,14 +22,16 @@
         <tbody>
         {% for post in posts %}
             <tr>
-                <td>{{ post.id }}</td>
+                {# <td>{{ post.id }}</td> #}
                 <td>{{ post.description }}</td>
                 <td>{{ post.link }}</td>
                 <td>{{ post.picture }}</td>
-                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ post.postBy.username }}</td>
+                <td>{{ post.createdAt ? post.createdAt|date('d/m/Y H:i') : '' }}</td>
                 <td>
-                    <button type='button' href="{{ path('app_post_show', {'id': post.id}) }}">Voir</button>
-                    <button type='button' href="{{ path('app_post_edit', {'id': post.id}) }}">Modifier</button>
+                    <a href="{{ path('app_post_show', {'id': post.id}) }}"><button type="button" class="btn btn-outline-success">Voir</button></a>
+                    <a href="{{ path('app_post_edit', {'id': post.id}) }}"><button type="button" class="btn btn-outline-primary">Modifier</button></a>
+                    {# <a type='button' href="">Modifier</a> #}
                 </td>
             </tr>
         {% else %}
@@ -38,6 +42,5 @@
         </tbody>
     </table>
 
-    <button type='button' href="{{ path('app_post_new') }}">Nouvel article</button>
     </div> 
 {% endblock %}

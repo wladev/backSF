@@ -7,17 +7,21 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Vich\UploaderBundle\Form\Type\VichImageType;
+
 class PostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('name')
             ->add('description')
             ->add('link')
-            ->add('picture')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
+            ->add('pictureFile', VichImageType::class)
+            // ->add('picture')
+            // ->add('createdAt', null, [
+            //     'widget' => 'single_text',
+            // ])
         ;
     }
 

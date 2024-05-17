@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création du profil{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <h1>Création du profil</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.username, {'attr':{'class':'form-control mb-4'}, label: 'Nom d\'utilisateur'}) }}
+        {{ form_row(registrationForm.email, {'attr':{'class':'form-control mb-4'}}) }}
+        {{ form_row(registrationForm.plainPassword, {
+            'attr':{'class':'form-control mb-4'},
+            label: 'Mot de Passe'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button type="submit" class="btn my-2" style="background-color: blue; color: white;">S'enregistrer</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}
