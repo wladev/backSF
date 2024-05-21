@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Post;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -17,8 +18,9 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Security\Core\Security;
 
-class PostCrudController extends AbstractCrudController
+class PostCrudController extends AbstractCrudController implements CrudControllerInterface
 {
+
     private $security;
 
     public function __construct(SecurityBundleSecurity $security)

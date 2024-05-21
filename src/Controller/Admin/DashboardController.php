@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Post;
 use App\Entity\User;
+use App\Entity\WebContact;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -41,16 +42,17 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
 
-            ->setFaviconPath('img/logo.png')
+            ->setFaviconPath('/img/logo.png')
             ->setTitle('Administration Web Start-Zup')
             ->renderContentMaximized();
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home pb-5');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home pb-5');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Articles de presse', 'fas fa-newspaper', Post::class);
+        yield MenuItem::linkToCrud('Demandes de contact site web', 'fas fa-address-book', WebContact::class);
     }
 }

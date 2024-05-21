@@ -1,8 +1,0 @@
-{{ form_start(form) }}
-    {# {{ form_widget(form) }} #}
-    {{ form_row(form.name, {'attr':{'class':'form-control mb-4'}, 'label':'Nom de l\'article'})}}
-    {{ form_row(form.description, {'attr':{'class':'form-control mb-4'}, 'label':'Descrition de l\'article'})}}
-    {{ form_row(form.link, {'attr':{'class':'form-control mb-4'}, 'label':'Lien http'})}}
-    {{ form_row(form.pictureFile, {'attr':{'class':'form-control mb-4'}, 'label':'Ajouter une image'})}}
-    <button class="btn my-2" style="background-color: blue; color: white;">{{ button_label|default('Ajouter') }}</button>
-{{ form_end(form) }}
