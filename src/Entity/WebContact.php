@@ -3,12 +3,52 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Controller\WebContactController;
 use App\Repository\WebContactRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: WebContactRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new \ApiPlatform\Metadata\GetCollection(),
+        new \ApiPlatform\Metadata\Post(
+            uriTemplate: '/web_contacts',
+            controller: WebContactController::class,
+            deserialize: false,
+            openapiContext: [
+                'requestBody' => [
+                    'content' => [
+                        'multipart/form-data' => [
+                            'schema' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'isAn' => ['type' => 'integer'],
+                                    'lstName' => ['type' => 'string'],
+                                    'fstName' => ['type' => 'string'],
+                                    'email' => ['type' => 'string'],
+                                    'situation' => ['type' => 'integer'],
+                                    'needs' => ['type' => 'string'],
+                                    'knowSz' => ['type' => 'integer'],
+                                    'cvFile' => ['type' => 'string', 'format' => 'binary'],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ),
+        new \ApiPlatform\Metadata\Get(),
+        new \ApiPlatform\Metadata\Put(),
+        new \ApiPlatform\Metadata\Delete(),
+    ]
+)]
+#[Vich\Uploadable]
 class WebContact
 {
     #[ORM\Id]
@@ -39,6 +79,20 @@ class WebContact
 
     // #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     // private ?\DateTimeInterface $createdAt = null;
+
+    #[Vich\UploadableField(mapping: 'cv_files', fileNameProperty: 'cvFileName')]
+    private ?File $cvFile = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $cvFileName = null;
+    
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $updatedAt = null;
+
+    public function __construct() {
+        $this->updatedAt = new DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -140,4 +194,41 @@ class WebContact
 
     //     return $this;
     // }
+
+    public function setCvFile(?File $cvFile = null): void
+    {
+        $this->cvFile = $cvFile;
+
+        if (null !== $cvFile) {
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
+    public function getCvFile(): ?File
+    {
+        return $this->cvFile;
+    }
+
+    public function setCvFileName(?string $cvFileName): void
+    {
+        $this->cvFileName = $cvFileName;
+    }
+
+    public function getCvFileName(): ?string
+    {
+        return $this->cvFileName;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $createdAt): static
+    {
+        $this->updatedAt = $createdAt;
+
+        return $this;
+    }
+
 }

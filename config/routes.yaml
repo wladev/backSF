@@ -3,3 +3,8 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+#add for api post pdf files
+api_web_contacts_post:
+    path: /api/web_contacts
+    controller: App\Controller\WebContactController::__invoke
+    methods: POST

@@ -35,14 +35,14 @@ class DashboardController extends AbstractDashboardController
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
         // return $this->render('some/path/my-dashboard.html.twig');
-        return $this->render('admin/dashboard.html.twig');
+        return $this->render('admin/dashboard.html.twig', ['favicon_path' => '/img/logo.png']);
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
 
-            ->setFaviconPath('/img/logo.png')
+            ->setFaviconPath('img/logo.png')
             ->setTitle('Administration Web Start-Zup')
             ->renderContentMaximized();
     }
