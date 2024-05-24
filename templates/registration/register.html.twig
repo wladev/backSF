@@ -1,25 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Création du profil{% endblock %}
+{% block title %}Création de compte{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('Erreur lors de la vérification de l\'email') %}
+    {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
-
-    <h1>Création du profil</h1>
+    <div class="text-center mb-5">
+                    <img src="{{asset('img/logo.png')}}" alt="logo" style="width: 15vw;" >
+                    </div>
+    <h1 class="text-center mb-5">Création de compte</h1>
 
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username, {'attr':{'class':'form-control mb-4'}, label: 'Nom d\'utilisateur'}) }}
-        {{ form_row(registrationForm.email, {'attr':{'class':'form-control mb-4'}}) }}
-        {{ form_row(registrationForm.plainPassword, {
-            'attr':{'class':'form-control mb-4'},
-            label: 'Mot de Passe'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    <div class="row d-flex justify-content-center ">
+        <div class="col-6">
+            {{ form_row(registrationForm.username, {'attr':{'class':'form-control mb-3', 'placeholder':'Nom d\'utilisateur'}, label:'Nom d\'utilisateur',})  }}
+        {# </div>
+        <div class="col-6"> #}
+            {{ form_row(registrationForm.email, {'attr':{'class':'form-control mb-3', 'placeholder':'Entrez votre e-mail'}}) }}
+        {# </div>
 
-        <button type="submit" class="btn my-2" style="background-color: blue; color: white;">S'enregistrer</button>
+        <div class="col-6"> #}
+            {{ form_row(registrationForm.plainPassword.first, {'attr':{'class':'form-control mb-3',  'placeholder':'Entrez votre mot de passe'}}) }}
+        {# </div>
+        <div class="col-6"> #}
+            {{ form_row(registrationForm.plainPassword.second, {'attr':{'class':'form-control mb-3', 'placeholder':'Confirmez votre mot de passe'}}) }}
+        </div>
+    <div class="text-center mb-5">
+				<button class="col-3 btn align-self-center btn-primary mt-5 text-center" type="submit">
+					Je crée mon compte
+				</button>
+                </div>
+
+    </div>
+
     {{ form_end(registrationForm) }}
 {% endblock %}

@@ -35,21 +35,22 @@ class DashboardController extends AbstractDashboardController
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
         // return $this->render('some/path/my-dashboard.html.twig');
-        return $this->render('admin/dashboard.html.twig', ['favicon_path' => '/img/logo.png']);
+        return $this->render('admin/dashboard.html.twig', ['favicon_path' => '/img/logo_admin.png']);
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-
-            ->setFaviconPath('img/logo.png')
+            // ->setLocales(['fr', 'en'])
+            // ->setDateFormat('dd/mm/YY')
+            ->setFaviconPath('img/logo_admin.png')
             ->setTitle('Administration Web Start-Zup')
             ->renderContentMaximized();
-    }
+        }
 
-    public function configureMenuItems(): iterable
-    {
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        public function configureMenuItems(): iterable
+        {
+            // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home pb-5');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Articles de presse', 'fas fa-newspaper', Post::class);

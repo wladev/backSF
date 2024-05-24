@@ -15,9 +15,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Bundle\SecurityBundle\Security as SecurityBundleSecurity;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+
+#[IsGranted('ROLE_USER')]
 class PostCrudController extends AbstractCrudController implements CrudControllerInterface
 {
 
@@ -28,15 +33,17 @@ class PostCrudController extends AbstractCrudController implements CrudControlle
         $this->security = $security;
     }
 
-    // Autres méthodes de configuration...
 
     public function createEntity(string $entityFqcn)
     {
+        if (!$this->security->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException('Vous n\'avez pas les droits pour créer un post.');
+            return $this->redirectToRoute('app_acces_denied', [], Response::HTTP_SEE_OTHER);
+        }
+
         $post = new Post();
-        
-        // Attribuer automatiquement l'utilisateur connecté comme l'utilisateur associé à la publication
         $post->setPostBy($this->security->getUser());
-        
+
         return $post;
     }
 
@@ -45,8 +52,10 @@ class PostCrudController extends AbstractCrudController implements CrudControlle
         return Post::class;
     }
 
+
     public function configureCrud(Crud $crud): Crud
     {
+        
         return $crud
 
         ->setPageTitle('index', 'Liste des %entity_label_plural%')
@@ -59,9 +68,11 @@ class PostCrudController extends AbstractCrudController implements CrudControlle
     
     public function configureFields(string $pageName): iterable
     {
+
         return [
             IdField::new('id')
-                ->hideOnForm(),
+                ->hideOnForm()
+                ->onlyOnDetail(),
             TextField::new('name', 'Nom'),
             TextField::new('description'),
             TextField::new('link', 'Lien')

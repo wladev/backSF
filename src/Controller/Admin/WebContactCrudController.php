@@ -6,13 +6,16 @@ use App\Entity\WebContact;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use Vich\UploaderBundle\Form\Type\VichFileType;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 
+#[IsGranted('ROLE_USER')]
 class WebContactCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -31,7 +34,7 @@ class WebContactCrudController extends AbstractCrudController
                     'Particulier' => 1,
                     'Entreprise' => 2,
                 ]),
-            TextField::new('email', 'Email'),
+            EmailField::new('email', 'Email'),
             ChoiceField::new('situation', 'Situation Professionnelle')
                 ->setChoices([
                     'Etudiant' => 1,
@@ -59,4 +62,6 @@ class WebContactCrudController extends AbstractCrudController
                 ->hideOnForm(),
         ];
     }
+
+    
 }

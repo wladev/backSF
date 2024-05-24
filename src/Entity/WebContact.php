@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: WebContactRepository::class)]
 #[ApiResource(
@@ -81,6 +82,10 @@ class WebContact
     // private ?\DateTimeInterface $createdAt = null;
 
     #[Vich\UploadableField(mapping: 'cv_files', fileNameProperty: 'cvFileName')]
+    #[Assert\File(
+        mimeTypes: ["application/pdf"],
+        mimeTypesMessage: "Le format de fichier est invalide"
+    )]
     private ?File $cvFile = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]

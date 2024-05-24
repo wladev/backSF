@@ -1,5 +1,7 @@
 <?php
 
+// src/Controller/WebContactController.php
+
 namespace App\Controller;
 
 use App\Entity\WebContact;
@@ -8,11 +10,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+
+// use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class WebContactController extends AbstractController
 {
     #[Route('/api/web_contacts', name: 'api_web_contacts_post', methods: ['POST'])]
-    public function __invoke(Request $request, EntityManagerInterface $em): Response
+    public function __invoke(Request $request, EntityManagerInterface $em, ValidatorInterface $validator, MailerInterface $mailer ): Response
     {
         $data = new WebContact();
         // Récupération et attribution des autres champs
@@ -29,10 +36,25 @@ class WebContactController extends AbstractController
             $data->setCvFile($request->files->get('cvFile'));
         }
 
+        $errors = $validator->validate($data);
+        if (count($errors) > 0) {
+            $errorsString = (string) $errors;
+
+            return new Response($errorsString, Response::HTTP_BAD_REQUEST);
+        }
+
         $em->persist($data);
         $em->flush();
+
+
+
+        // $this->addFlash(
+        //     'success',
+        //     'Votre demande a été envoyée avec succès'
+        // );
 
         return $this->json(['status' => 'Contact created'], Response::HTTP_CREATED);
     }
 }
+
 ?>

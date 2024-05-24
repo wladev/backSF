@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accès restreint{% endblock %}
+
+{% block body %}
+<div class='conainer-fluid'>
+    <div class='row d-flex justify-content-center'>
+        <div class='col-4 text-center'>
+            <img src="{{asset('img/denied.png')}}" alt="page 403" style="width: 30vw;">
+        </div>
+    </div>
+    <div class='row mt-5'>
+        <div class='col '>
+            <p class='text-center text-uppercase text-bold fw-bolder fs-4'>
+                Oops !
+            </p>
+            <p class='text-center text-uppercase text-bold fw-bolder fs-4'>
+                Vous n'avez pas les droits necessaires pour accèder à cette page !
+            </p>
+            <p class='text-center text-uppercase text-bold fw-bolder fs-4'>
+                Contactez votre administrateur
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
