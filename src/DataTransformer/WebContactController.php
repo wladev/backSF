@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 // use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
 class WebContactController extends AbstractController
@@ -51,7 +52,8 @@ class WebContactController extends AbstractController
 
         // Envoi de l'email de notification
         $email = (new Email())
-            ->from('no-reply@wpersonaliser.net')
+            // ->from(new Address('no-reply@wpersonaliser.net', 'Start-Zup Support'))
+            ->from(new Address('contact@wladev.fr', 'Start-Zup Support'))
             ->to('wladimir.perfiloff.dev@gmail.com')
             ->subject('Nouvelle demande de contact')
             ->text(sprintf(
