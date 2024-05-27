@@ -51,7 +51,7 @@ class WebContactController extends AbstractController
 
         // Envoi de l'email de notification
         $email = (new Email())
-            ->from('wladimir.perfiloff.dev@gmail.com')
+            ->from('no-reply@wpersonaliser.net')
             ->to('wladimir.perfiloff.dev@gmail.com')
             ->subject('Nouvelle demande de contact')
             ->text(sprintf(
