@@ -16,6 +16,8 @@
     {{ form_start(registrationForm) }}
     <div class="row d-flex justify-content-center ">
         <div class="col-6">
+            {{ form_row(registrationForm.lstName, {'attr':{'class':'form-control mb-3', 'placeholder':'Nom'}, label:'Nom',})  }}
+            {{ form_row(registrationForm.fstName, {'attr':{'class':'form-control mb-3', 'placeholder':'Prénom'}, label:'Prénom',})  }}
             {{ form_row(registrationForm.username, {'attr':{'class':'form-control mb-3', 'placeholder':'Nom d\'utilisateur'}, label:'Nom d\'utilisateur',})  }}
         {# </div>
         <div class="col-6"> #}

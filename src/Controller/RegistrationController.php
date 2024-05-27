@@ -46,8 +46,9 @@ class RegistrationController extends AbstractController
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('support@start-zup.com', 'Start-Zup Support'))
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->to('wladimir.perfiloff.dev@gmail.com')
+                    // ->to($user->getEmail())
+                    ->subject('Confirmation de compte')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
@@ -67,13 +68,13 @@ class RegistrationController extends AbstractController
         $id = $request->query->get('id');
 
         if (null === $id) {
-            return $this->redirectToRoute('app_register');
+            return $this->redirectToRoute('app_login');
         }
 
         $user = $userRepository->find($id);
 
         if (null === $user) {
-            return $this->redirectToRoute('app_register');
+            return $this->redirectToRoute('app_login');
         }
 
         // validate email confirmation link, sets User::isVerified=true and persists
@@ -88,6 +89,6 @@ class RegistrationController extends AbstractController
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');
 
-        return $this->redirectToRoute('app_register');
+        return $this->redirectToRoute('app_login');
     }
 }

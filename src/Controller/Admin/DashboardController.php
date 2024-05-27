@@ -1,5 +1,7 @@
 <?php
 
+//DashboardController.php
+
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
@@ -11,11 +13,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/', name: 'admin')]
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted('ROLE_VERIFIED')]
     public function index(): Response
     {
         // return parent::index();
@@ -55,5 +58,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Articles de presse', 'fas fa-newspaper', Post::class);
         yield MenuItem::linkToCrud('Demandes de contact site web', 'fas fa-address-book', WebContact::class);
+        // yield MenuItem::linkToRoute('Mon Compte', 'fas fa-user-cog', '??????');
     }
+
 }

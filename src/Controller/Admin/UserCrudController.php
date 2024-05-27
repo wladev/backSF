@@ -1,5 +1,7 @@
 <?php
 
+//UserCrudController.php
+
 namespace App\Controller\Admin;
 
 use App\Entity\User;
@@ -15,7 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[IsGranted('ROLE_SUPER_ADMIN')]
+// #[IsGranted('ROLE_SUPER_ADMIN')]
 class UserCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -51,10 +53,10 @@ class UserCrudController extends AbstractCrudController
             //         'ROLE_USER' => "ROLE_USER",
             //         'ROLE_ADMIN' => "ROLE_ADMIN",
             //     ])
-            ChoiceField::new('isVerified')
+            ChoiceField::new('isVerified', 'Autorisation d\'accès')
                 ->setChoices([
-                    'Non verifié' => 0,
-                    'Verifié' => 1,
+                    'Non autorisé' => 0,
+                    'Autorisé' => 1,
                 ]),
         ];
     }

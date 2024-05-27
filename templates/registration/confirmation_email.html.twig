@@ -1,11 +1,13 @@
-<h1>Hi! Please confirm your email!</h1>
+<h1>Demande d'accès au dashboard Start-Zup</h1>
+
+<h3>Vous avez reçu une demande d'accès au dashboard du site web start-zup.com de la part de <span style="color: blue;"> {{ userFstName }} {{ userLstName }}</span>.</h3>
 
 <p>
-    Please confirm your email address by clicking the following link: <br><br>
-    <a href="{{ signedUrl|raw }}">Confirm my Email</a>.
-    This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+    Pour valider cette demande, cliquez sur le lien ci-dessous: <br><br>
+    <a href="{{ signedUrl|raw }}">J'autorise l'accès au dashboard</a>.
+    Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
 </p>
 
 <p>
-    Cheers!
+    Le support Start-Zup
 </p>

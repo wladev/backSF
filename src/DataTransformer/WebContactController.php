@@ -12,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+
+
 // use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -47,7 +49,21 @@ class WebContactController extends AbstractController
         $em->flush();
 
 
+        // Envoi de l'email de notification
+        $email = (new Email())
+            ->from('wladimir.perfiloff.dev@gmail.com')
+            ->to('wladimir.perfiloff.dev@gmail.com')
+            ->subject('Nouvelle demande de contact')
+            ->text(sprintf(
+                "Une nouvelle demande de contact a été effectuée par %s %s. \n\nConnectez-vous au dashboard web pour consulter l'ensemble des informations. \n\nEmail: %s\n\nMessage:\n%s",
+                $data->getFstName(),
+                $data->getLstName(),
+                $data->getEmail(),
+                $data->getNeeds()
+            ));
 
+
+        $mailer->send($email);
         // $this->addFlash(
         //     'success',
         //     'Votre demande a été envoyée avec succès'

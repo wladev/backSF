@@ -13,6 +13,7 @@ use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['username'], message: 'Un compte existe déjà avec cet identifiant')]
+#[UniqueEntity(fields: ['email'], message: 'Un compte existe déjà avec cet email')]
 #[ApiResource]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -38,6 +39,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'postBy', targetEntity: Post::class)]
     private Collection $posts;
+
+    #[ORM\Column(length: 255)]
+    private ?string $fstName = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $lstName = null;
 
     public function __construct()
     {
@@ -145,6 +152,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getFstName(): ?string
+    {
+        return $this->fstName;
+    }
+
+    public function setFstName(string $fstName): static
+    {
+        $this->fstName = $fstName;
+
+        return $this;
+    }
+
+    public function getLstName(): ?string
+    {
+        return $this->lstName;
+    }
+
+    public function setLstName(string $lstName): static
+    {
+        $this->lstName = $lstName;
 
         return $this;
     }
