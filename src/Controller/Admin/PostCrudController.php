@@ -22,7 +22,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
-#[IsGranted('ROLE_USER')]
+#[IsGranted('ROLE_VERIFIED')]
 class PostCrudController extends AbstractCrudController implements CrudControllerInterface
 {
 

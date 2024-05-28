@@ -17,7 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-// #[IsGranted('ROLE_SUPER_ADMIN')]
+#[IsGranted('ROLE_SUPER_ADMIN')]
 class UserCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
