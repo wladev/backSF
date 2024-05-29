@@ -13,12 +13,12 @@ DirectoryIndex index.php
 
 # Disabling MultiViews prevents unwanted negotiation, e.g. "/index" should not resolve
 # to the front controller "/index.php" but be rewritten to "/index.php/index".
-<IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "https://start-zup.wladev.fr"
-    Header set Access-Control-Allow-Credentials true
-    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
-    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
-</IfModule>
+# <IfModule mod_headers.c>
+#     Header set Access-Control-Allow-Origin "https://start-zup.wladev.fr"
+#     Header set Access-Control-Allow-Credentials true
+#     Header set Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
+#     Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+# </IfModule>
 
 <IfModule mod_negotiation.c>
     Options -MultiViews
