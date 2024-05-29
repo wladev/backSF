@@ -16,7 +16,7 @@ nelmio_cors:
         allow_headers: []
         expose_headers: []
         allow_methods: []
-        max_age: 0
+        max_age: 3600
     paths:
         '^/':
             allow_origin: ['https://start-zup.wladev.fr']
