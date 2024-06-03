@@ -33,6 +33,7 @@ use Symfony\Component\Validator\Constraints as Assert;
                                     'lstName' => ['type' => 'string'],
                                     'fstName' => ['type' => 'string'],
                                     'email' => ['type' => 'string'],
+                                    'tel' => ['type' => 'string'],
                                     'situation' => ['type' => 'integer'],
                                     'needs' => ['type' => 'string'],
                                     'knowSz' => ['type' => 'integer'],
@@ -94,6 +95,9 @@ class WebContact
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $tel = null;
 
     public function __construct() {
         $this->updatedAt = new DateTime();
@@ -232,6 +236,18 @@ class WebContact
     public function setUpdatedAt(\DateTimeInterface $createdAt): static
     {
         $this->updatedAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(?string $tel): static
+    {
+        $this->tel = $tel;
 
         return $this;
     }

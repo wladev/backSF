@@ -60,6 +60,12 @@ class Event
     #[ORM\JoinColumn(nullable: false)]
     private ?User $addBy = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateEnd = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $link = null;
+
 
     public function __construct() {
         $this->createdAt = new DateTime();
@@ -213,6 +219,30 @@ class Event
     public function setAddBy(?User $addBy): static
     {
         $this->addBy = $addBy;
+
+        return $this;
+    }
+
+    public function getDateEnd(): ?\DateTimeInterface
+    {
+        return $this->dateEnd;
+    }
+
+    public function setDateEnd(?\DateTimeInterface $dateEnd): static
+    {
+        $this->dateEnd = $dateEnd;
+
+        return $this;
+    }
+
+    public function getLink(): ?string
+    {
+        return $this->link;
+    }
+
+    public function setLink(?string $link): static
+    {
+        $this->link = $link;
 
         return $this;
     }

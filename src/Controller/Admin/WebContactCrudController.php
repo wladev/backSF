@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use Vich\UploaderBundle\Form\Type\VichFileType;
@@ -35,6 +36,7 @@ class WebContactCrudController extends AbstractCrudController
                     'Entreprise' => 2,
                 ]),
             EmailField::new('email', 'Email'),
+            TelephoneField::new('tel', 'Téléphone'),
             ChoiceField::new('situation', 'Situation Professionnelle')
                 ->setChoices([
                     'Etudiant' => 1,

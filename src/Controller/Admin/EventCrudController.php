@@ -65,7 +65,8 @@ class EventCrudController extends AbstractCrudController
             IdField::new('id')
                 ->hideOnForm()
                 ->onlyOnDetail(),
-            DateTimeField::new('date_event'),
+            DateTimeField::new('date_event', 'date de l\'événement'),
+            DateTimeField::new('date_end', 'date de fin (optionnel)'),
             ChoiceField::new('guest', 'invité du vendredi ?')
             ->setChoices([
                 'Non' => 0,
@@ -73,6 +74,7 @@ class EventCrudController extends AbstractCrudController
             ]),
             TextField::new('theme'),
             TextField::new('description'),
+            TextField::new('link', 'lien https://....'),
             TextField::new('lieu'),
             TextField::new('photo', 'Photo')
             ->onlyOnForms()
@@ -86,10 +88,6 @@ class EventCrudController extends AbstractCrudController
             TextField::new('guestName', 'Nom de l\'invité (si guest du vendredi)'),
             TextField::new('guestTitle', 'Poste occupé par l\'invité'),
             TextField::new('guestCompany', 'Entreprise de l\'invité'),
-            // AssociationField::new('addBy', 'Posté par')
-            //     ->formatValue(static function ($value, $entity) {
-            //         return $entity->getAddBy() ? $entity->getAddBy()->getUsername() : '';
-            //     }),
             TextField::new('addBy.username', 'Posté par')
             ->setFormTypeOption('disabled', 'disabled'),
             DateTimeField::new('createdAt', 'Posté le')
