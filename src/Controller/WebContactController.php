@@ -53,7 +53,7 @@ class WebContactController extends AbstractController
         // Envoi de l'email de notification
         $email = (new Email())
             // ->from(new Address('no-reply@wpersonaliser.net', 'Start-Zup Support'))
-            ->from(new Address('contact@wladev.fr', 'Start-Zup Support'))
+            ->from(new Address('web_support@start-zup.org', 'Start-Zup Support'))
             ->to('wladimir.perfiloff.dev@gmail.com')
             ->subject('Nouvelle demande de contact')
             ->text(sprintf(

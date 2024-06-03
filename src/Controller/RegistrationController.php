@@ -46,7 +46,7 @@ class RegistrationController extends AbstractController
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     // ->from(new Address('no-reply@wpersonaliser.net', 'Start-Zup Support'))
-                    ->from(new Address('contact@wladev.fr', 'Start-Zup Support'))
+                    ->from(new Address('web_support@start-zup.org', 'Start-Zup Support'))
                     ->to('wladimir.perfiloff.dev@gmail.com')
                     // ->to($user->getEmail())
                     ->subject('Confirmation de compte')
@@ -88,7 +88,7 @@ class RegistrationController extends AbstractController
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', 'Votre adresse mail a bien été vérifiée.');
 
         return $this->redirectToRoute('app_login');
     }

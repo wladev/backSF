@@ -56,9 +56,9 @@ class WebContactCrudController extends AbstractCrudController
             TextField::new('cvFile', 'Fichier')
                 ->hideOnIndex()
                 ->setFormType(VichFileType::class),
-            TextField::new('cvFileName')
+            TextField::new('cvFileName', 'Ficher envoyé')
                 ->onlyOnIndex(),
-            DateTimeField::new('updatedAt')
+            DateTimeField::new('updatedAt', 'Ajouté le')
                 ->hideOnForm(),
         ];
     }

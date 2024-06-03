@@ -43,8 +43,7 @@ class UserCrudController extends AbstractCrudController
             IdField::new('id')
                 ->onlyOnDetail(),
             TextField::new('userName', 'Nom d\'utilisateur'),
-            EmailField::new('email')
-            ->setFormTypeOption('disabled', 'disabled'),
+            EmailField::new('email'),
             ArrayField::new('roles', 'Rôle'),
             // TextField::new('password', 'Mot de passe'),
 
