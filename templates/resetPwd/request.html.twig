@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="text-center mb-5">Réinitialisation du mot de passe</h1>
+    {{ form_start(requestForm) }}
+        {{ form_row(requestForm.email, {'attr':{'class':'form-control mb-3', 'placeholder':'Entrez votre email'}, label:'Email',}) }}
+        {# {{ form_row(requestForm.submit) }} #}
+        <div class="text-center mb-5">
+				<button class="col-3 btn align-self-center btn-primary mt-5 text-center" type="submit">
+					Envoyer la demande
+				</button>
+                </div>
+
+    </div>
+    {{ form_end(requestForm) }}
+{% endblock %}

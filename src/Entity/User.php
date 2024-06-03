@@ -52,6 +52,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Event::class, mappedBy: 'addBy')]
     private Collection $events;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $resetToken = null;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -213,6 +216,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $event->setAddBy(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
 
         return $this;
     }
