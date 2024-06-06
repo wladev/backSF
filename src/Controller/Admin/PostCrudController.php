@@ -61,7 +61,7 @@ class PostCrudController extends AbstractCrudController implements CrudControlle
         ->setPageTitle('index', 'Liste des %entity_label_plural%')
         ->setEntityLabelInSingular('Article')
         ->setEntityLabelInPlural('Articles')
-        ->setPaginatorPageSize(5);
+        ->setPaginatorPageSize(10);
 
     }
 

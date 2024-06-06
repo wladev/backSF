@@ -17,8 +17,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bundle\SecurityBundle\Security as SecurityBundleSecurity;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
+#[IsGranted('ROLE_VERIFIED')]
 class EventCrudController extends AbstractCrudController
 {
     private $security;

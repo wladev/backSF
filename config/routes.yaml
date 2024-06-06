@@ -8,3 +8,7 @@ api_web_contacts_post:
     path: /api/web_contacts
     controller: App\Controller\WebContactController::__invoke
     methods: POST
+restricted_route:
+    path: /api
+    methods: [GET]
+    controller: App\Controller\RestrictedController::restrictedAction

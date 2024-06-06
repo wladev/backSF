@@ -54,7 +54,7 @@ class WebContactController extends AbstractController
         $email = (new Email())
             // ->from(new Address('no-reply@wpersonaliser.net', 'Start-Zup Support'))
             ->from(new Address('web_support@start-zup.org', 'Start-Zup Support'))
-            ->to('wladimir.perfiloff.dev@gmail.com')
+            ->to('contact@start-zup.com')
             ->subject('Nouvelle demande de contact')
             ->text(sprintf(
                 "Une nouvelle demande de contact a été effectuée par %s %s. \n\nConnectez-vous au dashboard web pour consulter l'ensemble des informations. \n\nEmail: %s\n\nMessage:\n%s",

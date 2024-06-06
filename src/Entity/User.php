@@ -14,7 +14,7 @@ use ApiPlatform\Metadata\ApiResource;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['username'], message: 'Un compte existe déjà avec cet identifiant')]
 #[UniqueEntity(fields: ['email'], message: 'Un compte existe déjà avec cet email')]
-#[ApiResource]
+#[ApiResource(security: "is_granted('ROLE_ADMIN')")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
