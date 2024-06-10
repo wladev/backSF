@@ -8,7 +8,6 @@ use App\Repository\WebContactRepository;
 use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -17,7 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: WebContactRepository::class)]
 #[ApiResource(
     operations: [
-        new \ApiPlatform\Metadata\GetCollection(),
         new \ApiPlatform\Metadata\Post(
             uriTemplate: '/web_contacts',
             controller: WebContactController::class,
@@ -45,9 +43,6 @@ use Symfony\Component\Validator\Constraints as Assert;
                 ],
             ],
         ),
-        new \ApiPlatform\Metadata\Get(),
-        new \ApiPlatform\Metadata\Put(),
-        new \ApiPlatform\Metadata\Delete(),
     ]
 )]
 #[Vich\Uploadable]
@@ -78,9 +73,6 @@ class WebContact
 
     #[ORM\Column]
     private ?int $knowSz = null;
-
-    // #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    // private ?\DateTimeInterface $createdAt = null;
 
     #[Vich\UploadableField(mapping: 'cv_files', fileNameProperty: 'cvFileName')]
     #[Assert\File(
@@ -192,18 +184,6 @@ class WebContact
         return $this;
     }
 
-    // public function getCreatedAt(): ?\DateTimeInterface
-    // {
-    //     return $this->createdAt;
-    // }
-
-    // public function setCreatedAt(\DateTimeInterface $createdAt): static
-    // {
-    //     $this->createdAt = $createdAt;
-
-    //     return $this;
-    // }
-
     public function setCvFile(?File $cvFile = null): void
     {
         $this->cvFile = $cvFile;
@@ -251,5 +231,4 @@ class WebContact
 
         return $this;
     }
-
 }
