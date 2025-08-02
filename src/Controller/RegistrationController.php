@@ -46,8 +46,8 @@ class RegistrationController extends AbstractController
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     // ->from(new Address('no-reply@wpersonaliser.net', 'Start-Zup Support'))
-                    ->from(new Address('web_support@start-zup.org', 'Start-Zup Support'))
-                    ->to('contact@start_zup.com')
+                    ->from(new Address('******@********', 'Start-Zup Support'))
+                    ->to('*******@******')
                     // ->to($user->getEmail())
                     ->subject('Confirmation de compte')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
